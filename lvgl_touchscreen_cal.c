@@ -55,6 +55,7 @@ void touchscreen_cal_create(void)
     cal_screen = lv_obj_create(NULL);
     lv_obj_remove_style(cal_screen, NULL, LV_PART_ANY | LV_STATE_ANY);
     lv_obj_set_size(cal_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_layout(cal_screen, 0);  // Disable layout of children. The first registered layout starts at 1
     lv_scr_load(cal_screen);
 
     // A big transparent button to receive clicks:
@@ -105,10 +106,10 @@ static void btn_click_action(lv_event_t* event)
         lv_obj_t*   label_coord = lv_label_create(cal_screen);
         lv_label_set_text(label_coord, buf);
         lv_obj_update_layout(label_coord);
-	// Position the coordinates label in the corner with a 5 pixel margin:
+	    // Position the coordinates label in the corner with a 5 pixel margin:
         lv_obj_set_pos(label_coord,
-	    clamp(current_x, 5, LV_HOR_RES-lv_obj_get_width(label_coord)-5),
-	    clamp(current_y, 5, LV_VER_RES-lv_obj_get_height(label_coord)-5));
+	        clamp(current_x, 5, LV_HOR_RES-lv_obj_get_width(label_coord)-5),
+	        clamp(current_y, 5, LV_VER_RES-lv_obj_get_height(label_coord)-5));
     }
 
     // Set up the instructions and the animation to the new calibration target location:
